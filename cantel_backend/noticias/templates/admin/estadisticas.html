@@ -1,0 +1,17 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<h1>Estadísticas de Reportes Ciudadanos</h1>
+
+<div>
+    <p><strong>Total de reportes:</strong> {{ total_reportes }}</p>
+</div>
+
+<h2>Reportes por Asunto</h2>
+<ul>
+    {% for reporte in reportes_por_asunto %}
+        <li><strong>{{ reporte.asunto }}:</strong> {{ reporte.total }}</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'admin:index' %}" class="button">Volver al Panel</a>
+{% endblock %}
