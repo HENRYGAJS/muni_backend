@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+import os 
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-n$r%i@4&+jlogqn8qggcy!zv$)o$p^9)iocm11stv$8ft!lft8'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -126,6 +130,7 @@ MIDDLEWARE = [
     
     'axes.middleware.AxesMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -133,6 +138,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'cantel_backend.urls'
@@ -159,13 +165,31 @@ WSGI_APPLICATION = 'cantel_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+#DATABASES = {
+ #   'default': {
+  #      'ENGINE': 'django.db.backends.mysql',
+   #     'NAME': 'municipalidad_cantel',
+    #    'USER': 'root',
+     #   'PASSWORD': '12345678',
+      #  'HOST': 'localhost',
+       # 'PORT': '3306',
+#    }
+#}
+
+
+DATABASENAME = os.environ.get('NAME')
+DATABASEUSER = os.environ.get('USER')
+DATABASEPASSWORD = os.environ.get('PASSWORD')
+DATABASEHOST = os.environ.get('HOST')
+DATABASEPORT = os.environ.get('PORT')
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'municipalidad_cantel',
-        'USER': 'root',
-        'PASSWORD': '12345678',
-        'HOST': 'localhost',
+        'NAME': DATABASENAME,
+        'USER': DATABASEUSER,
+        'PASSWORD': DATABASEPASSWORD,
+        'HOST': DATABASEHOST,
         'PORT': '3306',
     }
 }
@@ -222,7 +246,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+#STATIC_URL = 'static/'
+
 STATIC_URL = 'static/'
+STATIC_DIIRS = [ BASE_DIR / 'static' ]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
