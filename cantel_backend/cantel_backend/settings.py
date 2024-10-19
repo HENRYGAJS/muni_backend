@@ -69,6 +69,7 @@ SECURE_CONTENT_TYPE_NOSNIFF = True  # Evita que el navegador adivine el tipo de 
 # Application definition
 
 INSTALLED_APPS = [
+    'cantel_backend.noticias',
     'axes',
     'jazzmin',
     'django.contrib.admin',
