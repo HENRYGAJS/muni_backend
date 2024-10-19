@@ -163,9 +163,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'municipalidad_cantel',
-        'USER': 'munidb',
-        'PASSWORD': 'Muni2024admin',
-        'HOST': 'db-muni.cbwe0gmysorw.us-east-2.rds.amazonaws.com',
+        'USER': 'root',
+        'PASSWORD': '12345678',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
