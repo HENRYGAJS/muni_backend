@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-n$r%i@4&+jlogqn8qggcy!zv$)o$p^9)iocm11stv$8ft!lft8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['muni-backend.onrender.com', '127.0.0.1', 'localhost']
 
 
 
@@ -163,9 +163,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'municipalidad_cantel',
-        'USER': 'root',
-        'PASSWORD': '12345678',
-        'HOST': 'localhost',
+        'USER': 'munidb',
+        'PASSWORD': 'Muni2024admin',
+        'HOST': 'db-muni.cbwe0gmysorw.us-east-2.rds.amazonaws.com',
         'PORT': '3306',
     }
 }
