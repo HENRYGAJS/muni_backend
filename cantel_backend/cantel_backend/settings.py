@@ -141,7 +141,7 @@ MIDDLEWARE = [
     
 ]
 
-ROOT_URLCONF = 'cantel_backend.urls'
+ROOT_URLCONF = 'cantel_backend.cantel_backend.urls'
 
 TEMPLATES = [
     {
@@ -159,7 +159,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'cantel_backend.wsgi.application'
+WSGI_APPLICATION = 'cantel_backend.cantel_backend.wsgi.application'
 
 
 # Database
