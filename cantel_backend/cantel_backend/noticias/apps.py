@@ -1,6 +1,5 @@
 from django.apps import AppConfig
 
-
 class NoticiasConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'cantel_backend.noticias'
+    name = 'cantel_backend.cantel_backend.noticias'
