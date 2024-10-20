@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['muni-backend.onrender.com', '127.0.0.1', 'localhost']
 
+
+# settings.py
+
 # Usar cookies seguras solo a través de HTTPS (importante si tienes habilitado HTTPS)
 SESSION_COOKIE_SECURE = True
 
@@ -35,6 +37,7 @@ SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_HTTPONLY = True
 
 # Definir el tiempo de expiración de la sesión (en segundos)
+# Aquí definimos 10 minutos (600 segundos)
 SESSION_COOKIE_AGE = 600
 
 # Cerrar la sesión automáticamente cuando se cierre el navegador
@@ -43,9 +46,19 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 # Configurar una política de referer segura para evitar que se comparta información de origen sensible
 SECURE_REFERRER_POLICY = 'same-origin'
 
+
+# Cierra la sesión cuando el navegador se cierre
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+
+
+
+
+
 X_FRAME_OPTIONS = 'DENY'  # Evitar que la página sea cargada en un iframe
 SECURE_BROWSER_XSS_FILTER = True  # Filtro anti-XSS del navegador
 SECURE_CONTENT_TYPE_NOSNIFF = True  # Evita que el navegador adivine el tipo de contenido
+
 
 # Application definition
 
@@ -63,10 +76,18 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
+
+
+# settings.py
+
+
+
 AUTHENTICATION_BACKENDS = (
     'axes.backends.AxesStandaloneBackend',  # Cambiar al nuevo backend
     'django.contrib.auth.backends.ModelBackend',
 )
+
+
 
 JAZZMIN_SETTINGS = {
     "site_title": "Administración Cantel",
@@ -97,7 +118,10 @@ JAZZMIN_SETTINGS = {
     #"site_logo": "ruta/a/tu/logo.png",  # Cambia esta ruta al logo que desees
 }
 
+
+
 MIDDLEWARE = [
+    
     'axes.middleware.AxesMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -131,6 +155,19 @@ WSGI_APPLICATION = 'cantel_backend.wsgi.application'
 
 
 # Database
+# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'municipalidad_cantel',
+#        'USER': 'root',
+#        'PASSWORD': '12345678',
+#        'HOST': 'localhost',
+#        'PORT': '3306',
+#    }
+#}
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -142,7 +179,12 @@ DATABASES = {
     }
 }
 
+
+
+
 # Password validation
+# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -158,29 +200,45 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+
+
+
 # Internationalization
+# https://docs.djangoproject.com/en/5.1/topics/i18n/
+
+#LANGUAGE_CODE = 'en-us'
+
+#IME_ZONE = 'UTC'
+
+#USE_I18N = True
+
+#USE_TZ = True
+
+
+
 LANGUAGE_CODE = 'es'
-TIME_ZONE = 'America/Guatemala'
+
+TIME_ZONE = 'America/Guatemala'  
+
 USE_I18N = True
+
 USE_L10N = True
+
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Definir STATIC_ROOT para producción
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # Definir carpeta para archivos estáticos adicionales
 
-# Media files (uploads)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.1/howto/static-files/
+
+STATIC_URL = 'static/'
 
 # Default primary key field type
+# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Configuración de CORS
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 CORS_ALLOW_ALL_ORIGINS = True
-
-# Configuración de seguridad adicional
-CSRF_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
-
