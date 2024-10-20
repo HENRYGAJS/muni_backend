@@ -157,16 +157,28 @@ WSGI_APPLICATION = 'cantel_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'municipalidad_cantel',
+#        'USER': 'root',
+#        'PASSWORD': '12345678',
+#        'HOST': 'localhost',
+#        'PORT': '3306',
+#    }
+#}
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'municipalidad_cantel',
-        'USER': 'root',
-        'PASSWORD': '12345678',
-        'HOST': 'localhost',
+        'USER': 'munidb',
+        'PASSWORD': 'Muni2024admin',
+        'HOST': 'db-muni.cbwe0gmysorw.us-east-2.rds.amazonaws.com',
         'PORT': '3306',
     }
 }
+
 
 
 
