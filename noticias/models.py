@@ -1,9 +1,20 @@
 from django.db import models
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
+import os
 
+# Función para eliminar archivos del sistema de archivos
+def eliminar_archivo(instance, **kwargs):
+    if hasattr(instance, 'imagen') and instance.imagen:
+        if os.path.isfile(instance.imagen.path):
+            os.remove(instance.imagen.path)
+    if hasattr(instance, 'archivo') and instance.archivo:
+        if os.path.isfile(instance.archivo.path):
+            os.remove(instance.archivo.path)
 
+# Modelos con señales
 
-
-
+# Inicio
 class Inicio(models.Model):
     eslogan = models.CharField(max_length=255)
     administracion = models.CharField(max_length=255)
@@ -13,50 +24,48 @@ class ImagenPalacioMunicipal(models.Model):
     inicio = models.ForeignKey(Inicio, related_name='imagenes_palacio', on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to='palacio_municipal/')
 
+@receiver(post_delete, sender=ImagenPalacioMunicipal)
+def eliminar_imagen_palacio(sender, instance, **kwargs):
+    eliminar_archivo(instance)
+
 class ImagenEscudoMunicipal(models.Model):
     inicio = models.ForeignKey(Inicio, related_name='imagenes_escudo', on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to='escudo_municipal/')
 
+@receiver(post_delete, sender=ImagenEscudoMunicipal)
+def eliminar_imagen_escudo(sender, instance, **kwargs):
+    eliminar_archivo(instance)
 
-
-
+# Noticias
 class Noticia(models.Model):
     titulo = models.CharField(max_length=200)
-    descripcion = models.TextField()  # Campo para la descripción
+    descripcion = models.TextField()
     fecha_creacion = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.titulo
 
 class ImagenNoticia(models.Model):
     noticia = models.ForeignKey(Noticia, related_name='imagenes', on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to='noticias/imagenes/')
-    
-    def __str__(self):
-        return f"Imagen de {self.noticia.titulo}"
 
+@receiver(post_delete, sender=ImagenNoticia)
+def eliminar_imagen_noticia(sender, instance, **kwargs):
+    eliminar_archivo(instance)
 
-
+# Eventos
 class Evento(models.Model):
     titulo = models.CharField(max_length=200)
     descripcion = models.TextField()
     fecha_evento = models.DateField()
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.titulo
-
 class ImagenEvento(models.Model):
     evento = models.ForeignKey(Evento, related_name='imagenes', on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to='eventos/imagenes/')
 
-    def __str__(self):
-        return f"Imagen de {self.evento.titulo}"
+@receiver(post_delete, sender=ImagenEvento)
+def eliminar_imagen_evento(sender, instance, **kwargs):
+    eliminar_archivo(instance)
 
-
-
-
-
+# Corporación Actual
 class CorporacionActual(models.Model):
     titulo = models.CharField(max_length=200)
     descripcion = models.TextField()
@@ -64,139 +73,101 @@ class CorporacionActual(models.Model):
     vision = models.TextField()
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        verbose_name = 'Corporación Actual'
-        verbose_name_plural = 'Corporación Actual'
-
-    def __str__(self):
-        return self.titulo
-
 class ImagenCorporacion(models.Model):
     corporacion = models.ForeignKey(CorporacionActual, related_name='imagenes', on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to='corporacion/imagenes/')
 
-    def __str__(self):
-        return f"Imagen de {self.corporacion.titulo}"
+@receiver(post_delete, sender=ImagenCorporacion)
+def eliminar_imagen_corporacion(sender, instance, **kwargs):
+    eliminar_archivo(instance)
 
-
-
-
+# Historia Cantel
 class HistoriaCantel(models.Model):
     titulo = models.CharField(max_length=200)
     subtitulo = models.CharField(max_length=300)
     descripcion = models.TextField(max_length=2000)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        verbose_name = 'Historia de Cantel'
-        verbose_name_plural = 'Historia de Cantel'
-
-    def __str__(self):
-        return self.titulo
-
 class ImagenHistoriaCantel(models.Model):
     historia = models.ForeignKey(HistoriaCantel, related_name='imagenes', on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to='historia_cantel/imagenes/')
 
-    def __str__(self):
-        return f"Imagen de {self.historia.titulo}"
+@receiver(post_delete, sender=ImagenHistoriaCantel)
+def eliminar_imagen_historia(sender, instance, **kwargs):
+    eliminar_archivo(instance)
 
-
-
-
-
-
+# Lugar Turístico
 class LugarTuristico(models.Model):
     nombre = models.CharField(max_length=200)
     descripcion = models.TextField()
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.nombre
-
 class ImagenTuristica(models.Model):
     lugar = models.ForeignKey(LugarTuristico, related_name='imagenes', on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to='turismo/imagenes/')
-    
-    def __str__(self):
-        return f"Imagen de {self.lugar.nombre}"
-    
 
+@receiver(post_delete, sender=ImagenTuristica)
+def eliminar_imagen_turistica(sender, instance, **kwargs):
+    eliminar_archivo(instance)
 
+# Evento Cultural
 class EventoCultural(models.Model):
     nombre = models.CharField(max_length=200)
     descripcion = models.TextField()
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.nombre
-
 class ImagenCultural(models.Model):
     evento = models.ForeignKey(EventoCultural, related_name='imagenes', on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to='cultura/imagenes/')
-    
-    def __str__(self):
-        return f"Imagen de {self.evento.nombre}"
 
+@receiver(post_delete, sender=ImagenCultural)
+def eliminar_imagen_cultural(sender, instance, **kwargs):
+    eliminar_archivo(instance)
 
-
-
+# Plato Gastronómico
 class PlatoGastronomico(models.Model):
     nombre = models.CharField(max_length=200)
     descripcion = models.TextField()
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.nombre
-
 class ImagenGastronomica(models.Model):
     plato = models.ForeignKey(PlatoGastronomico, related_name='imagenes', on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to='gastronomia/imagenes/')
-    
-    def __str__(self):
-        return f"Imagen de {self.plato.nombre}"
 
+@receiver(post_delete, sender=ImagenGastronomica)
+def eliminar_imagen_gastronomia(sender, instance, **kwargs):
+    eliminar_archivo(instance)
 
-
-
-
+# Lugar Hospedaje
 class LugarHospedaje(models.Model):
     nombre = models.CharField(max_length=200)
     descripcion = models.TextField()
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.nombre
-
 class ImagenHospedaje(models.Model):
     lugar = models.ForeignKey(LugarHospedaje, related_name='imagenes', on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to='hospedaje/imagenes/')
-    
-    def __str__(self):
-        return f"Imagen de {self.lugar.nombre}"
 
+@receiver(post_delete, sender=ImagenHospedaje)
+def eliminar_imagen_hospedaje(sender, instance, **kwargs):
+    eliminar_archivo(instance)
 
-
-
+# Gasolineras
 class Gasolinera(models.Model):
     nombre = models.CharField(max_length=200)
     direccion = models.CharField(max_length=300)
     descripcion = models.TextField()
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.nombre
-
 class ImagenGasolinera(models.Model):
     gasolinera = models.ForeignKey(Gasolinera, related_name='imagenes', on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to='gasolineras/imagenes/')
 
-    def __str__(self):
-        return f"Imagen de {self.gasolinera.nombre}"
+@receiver(post_delete, sender=ImagenGasolinera)
+def eliminar_imagen_gasolinera(sender, instance, **kwargs):
+    eliminar_archivo(instance)
 
-
-
-
+# Reporte Ciudadano
 class ReporteCiudadano(models.Model):
     ASUNTO_CHOICES = [
         ('calle', 'Calle en mal estado'),
@@ -205,7 +176,6 @@ class ReporteCiudadano(models.Model):
         ('tuberia', 'Daño a tubería de agua'),
         ('otros', 'Otros'),
     ]
-
     nombre = models.CharField(max_length=100)
     correo = models.EmailField()
     telefono = models.CharField(max_length=15)
@@ -216,56 +186,46 @@ class ReporteCiudadano(models.Model):
     latitud = models.FloatField()
     longitud = models.FloatField()
 
-    def __str__(self):
-        return f"{self.nombre} - {self.asunto}"
-
-
-
-
-
+# Trámites
 class Tramite(models.Model):
     nombre = models.CharField(max_length=200)
     descripcion = models.TextField()
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.nombre
-
 class ImagenTramite(models.Model):
     tramite = models.ForeignKey(Tramite, related_name='imagenes', on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to='tramites/imagenes/')
-    
-    def __str__(self):
-        return f"Imagen de {self.tramite.nombre}"
+
+@receiver(post_delete, sender=ImagenTramite)
+def eliminar_imagen_tramite(sender, instance, **kwargs):
+    eliminar_archivo(instance)
 
 class ArchivoTramite(models.Model):
     tramite = models.ForeignKey(Tramite, related_name='archivos', on_delete=models.CASCADE)
     archivo = models.FileField(upload_to='tramites/archivos/')
-    
-    def __str__(self):
-        return f"Archivo de {self.tramite.nombre}"
 
+@receiver(post_delete, sender=ArchivoTramite)
+def eliminar_archivo_tramite(sender, instance, **kwargs):
+    eliminar_archivo(instance)
 
-
-
+# Servicios
 class Servicio(models.Model):
     nombre = models.CharField(max_length=200)
     descripcion = models.TextField()
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.nombre
-
 class ImagenServicio(models.Model):
     servicio = models.ForeignKey(Servicio, related_name='imagenes', on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to='servicios/imagenes/')
-    
-    def __str__(self):
-        return f"Imagen de {self.servicio.nombre}"
+
+@receiver(post_delete, sender=ImagenServicio)
+def eliminar_imagen_servicio(sender, instance, **kwargs):
+    eliminar_archivo(instance)
 
 class ArchivoServicio(models.Model):
     servicio = models.ForeignKey(Servicio, related_name='archivos', on_delete=models.CASCADE)
     archivo = models.FileField(upload_to='servicios/archivos/')
-    
-    def __str__(self):
-        return f"Archivo de {self.servicio.nombre}"
+
+@receiver(post_delete, sender=ArchivoServicio)
+def eliminar_archivo_servicio(sender, instance, **kwargs):
+    eliminar_archivo(instance)

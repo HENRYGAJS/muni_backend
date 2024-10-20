@@ -28,8 +28,6 @@ DEBUG = True
 ALLOWED_HOSTS = ['muni-backend.onrender.com', '127.0.0.1', 'localhost']
 
 
-
-
 # settings.py
 
 # Usar cookies seguras solo a través de HTTPS (importante si tienes habilitado HTTPS)
