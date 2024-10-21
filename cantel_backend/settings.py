@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-n$r%i@4&+jlogqn8qggcy!zv$)o$p^9)iocm11stv$8ft!lft8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['muni-backend.onrender.com', '127.0.0.1', 'localhost']
 
@@ -235,10 +235,8 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') ###agregado
 
-
-#STATIC_URL = 'static/'
-
 STATIC_URL = '/static/' ##agregado
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
