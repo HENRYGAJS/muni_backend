@@ -4,13 +4,39 @@ from django.dispatch import receiver
 import os
 
 # Función para eliminar archivos del sistema de archivos
+#def eliminar_archivo(instance, **kwargs):
+#    if hasattr(instance, 'imagen') and instance.imagen:
+#        if os.path.isfile(instance.imagen.path):
+#            os.remove(instance.imagen.path)
+#    if hasattr(instance, 'archivo') and instance.archivo:
+#        if os.path.isfile(instance.archivo.path):
+#            os.remove(instance.archivo.path)
+
+
+
+
+import boto3
+from django.conf import settings
+
+s3_client = boto3.client('s3', 
+    aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+    region_name=settings.AWS_S3_REGION_NAME
+)
+
 def eliminar_archivo(instance, **kwargs):
     if hasattr(instance, 'imagen') and instance.imagen:
-        if os.path.isfile(instance.imagen.path):
-            os.remove(instance.imagen.path)
+        try:
+            s3_client.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=instance.imagen.name)
+        except Exception as e:
+            print(f"Error al eliminar el archivo {instance.imagen.name}: {e}")
     if hasattr(instance, 'archivo') and instance.archivo:
-        if os.path.isfile(instance.archivo.path):
-            os.remove(instance.archivo.path)
+        try:
+            s3_client.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=instance.archivo.name)
+        except Exception as e:
+            print(f"Error al eliminar el archivo {instance.archivo.name}: {e}")
+
+
 
 # Modelos con señales
 
