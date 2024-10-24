@@ -11,6 +11,16 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
 from pathlib import Path
+from datetime import timedelta
+from dotenv import load_dotenv
+from decouple import config
+
+import os
+from decouple import config
+
+from decouple import config, Csv
+
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,7 +34,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-n$r%i@4&+jlogqn8qggcy!zv$)o$p^9)iocm11stv$8ft!lft8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =False
+DEBUG =True
 
 ALLOWED_HOSTS = ['muni-backend.onrender.com', '127.0.0.1', 'localhost']
 
@@ -38,8 +48,8 @@ SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_HTTPONLY = True
 
 # Definir el tiempo de expiración de la sesión (en segundos)
-# Aquí definimos 10 minutos (600 segundos)
-SESSION_COOKIE_AGE = 600
+# Aquí definimos 45 minutos (2700 segundos)
+SESSION_COOKIE_AGE = 2700
 
 # Cerrar la sesión automáticamente cuando se cierre el navegador
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
@@ -52,6 +62,10 @@ SECURE_REFERRER_POLICY = 'same-origin'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 
+# Configuraciones de Django Axes
+AXES_FAILURE_LIMIT = 10  # Límite de intentos fallidos permitidos antes de bloquear
+AXES_COOLOFF_TIME = timedelta(minutes=30)  # Tiempo de bloqueo (en este caso, 30 minutos)
+AXES_RESET_ON_SUCCESS = True  # Reinicia el contador de intentos fallidos al iniciar sesión correctamente
 
 
 
@@ -175,16 +189,31 @@ WSGI_APPLICATION = 'cantel_backend.wsgi.application'
 #    }
 #}
 
+
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'municipalidad_cantel',
-        'USER': 'munidb',
-        'PASSWORD': 'Muni2024admin',
-        'HOST': 'db-muni.cbwe0gmysorw.us-east-2.rds.amazonaws.com',
-        'PORT': '3306',
+        'NAME': config('NAME'),
+        'USER': config('USER'),
+        'PASSWORD': config('PASSWORD'),
+        'HOST': config('HOST'),
+        'PORT': config('PORT', cast=int),  # `PORT` debe ser entero
     }
 }
+
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'municipalidad_cantel',
+#        'USER': 'munidb',
+#        'PASSWORD': 'Muni2024admin',
+#        'HOST': 'db-muni.cbwe0gmysorw.us-east-2.rds.amazonaws.com',
+#        'PORT': '3306',
+#    }
+#}
 
 
 
@@ -261,14 +290,17 @@ USE_TZ = True
 #DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
-import os
-from decouple import config
 
 # Credenciales de AWS
-AWS_ACCESS_KEY_ID = '***REMOVED***'
-AWS_SECRET_ACCESS_KEY = '***REMOVED***'
-AWS_STORAGE_BUCKET_NAME = 'municipalidad-cantel-media'
-AWS_S3_REGION_NAME = 'us-east-2'
+#AWS_ACCESS_KEY_ID = '***REMOVED***'
+#AWS_SECRET_ACCESS_KEY = '***REMOVED***'
+#AWS_STORAGE_BUCKET_NAME = 'municipalidad-cantel-media'
+#AWS_S3_REGION_NAME = 'us-east-2'
+
+AWS_ACCESS_KEY_ID = config ('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config ('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config ('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = config ('AWS_S3_REGION_NAME')
 
 # Configuración de AWS S3
 AWS_S3_FILE_OVERWRITE = False
@@ -281,6 +313,8 @@ AWS_S3_CUSTOM_DOMAIN = 'municipalidad-cantel-media.s3.us-east-2.amazonaws.com'
 #MEDIA_URL = 'municipalidad-cantel-media.s3.us-east-2.amazonaws.com/media/'
 STATIC_URL = 'https://municipalidad-cantel-media.s3.us-east-2.amazonaws.com/static/'
 MEDIA_URL = 'https://municipalidad-cantel-media.s3.us-east-2.amazonaws.com/media/'
+
+
 # Usar S3 para almacenar archivos estáticos y media
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
