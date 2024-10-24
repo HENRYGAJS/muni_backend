@@ -304,8 +304,8 @@ AWS_S3_CUSTOM_DOMAIN = 'municipalidad-cantel-media.s3.us-east-2.amazonaws.com'
 # Configurar la ubicación de los archivos estáticos en S3
 #STATIC_URL = 'municipalidad-cantel-media.s3.us-east-2.amazonaws.com/static/'
 #MEDIA_URL = 'municipalidad-cantel-media.s3.us-east-2.amazonaws.com/media/'
-STATIC_URL = 'municipalidad-cantel-media.s3.us-east-2.amazonaws.com/static/'
-MEDIA_URL = 'municipalidad-cantel-media.s3.us-east-2.amazonaws.com/media/'
+#STATIC_URL = 'https://municipalidad-cantel-media.s3.us-east-2.amazonaws.com/static/'
+#MEDIA_URL = 'https://municipalidad-cantel-media.s3.us-east-2.amazonaws.com/media/'
 
 
 # Usar S3 para almacenar archivos estáticos y media
