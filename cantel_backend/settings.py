@@ -34,7 +34,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-n$r%i@4&+jlogqn8qggcy!zv$)o$p^9)iocm11stv$8ft!lft8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =True
+DEBUG =False
 
 ALLOWED_HOSTS = ['muni-backend.onrender.com', '127.0.0.1', 'localhost']
 
@@ -304,8 +304,8 @@ AWS_S3_CUSTOM_DOMAIN = 'municipalidad-cantel-media.s3.us-east-2.amazonaws.com'
 # Configurar la ubicación de los archivos estáticos en S3
 #STATIC_URL = 'municipalidad-cantel-media.s3.us-east-2.amazonaws.com/static/'
 #MEDIA_URL = 'municipalidad-cantel-media.s3.us-east-2.amazonaws.com/media/'
-STATIC_URL = 'https://municipalidad-cantel-media.s3.us-east-2.amazonaws.com/static/'
-MEDIA_URL = 'https://municipalidad-cantel-media.s3.us-east-2.amazonaws.com/media/'
+STATIC_URL = 'municipalidad-cantel-media.s3.us-east-2.amazonaws.com/static/'
+MEDIA_URL = 'municipalidad-cantel-media.s3.us-east-2.amazonaws.com/media/'
 
 
 # Usar S3 para almacenar archivos estáticos y media
