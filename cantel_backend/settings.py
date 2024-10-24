@@ -271,11 +271,7 @@ USE_TZ = True
 
 
 
-# Definir el bucket de S3 para archivos estáticos y media
-#AWS_ACCESS_KEY_ID = '***REMOVED***'  # Reemplaza con tu Access Key ID de AWS
-#AWS_SECRET_ACCESS_KEY = '***REMOVED***'  # Reemplaza con tu Secret Access Key de AWS
-#AWS_STORAGE_BUCKET_NAME = 'municipalidad-cantel-media' # Reemplaza con el nombre de tu bucket S3
-#AWS_S3_REGION_NAME = 'us-east-2' # Reemplaza con tu región, si es diferente
+
 #AWS_S3_FILE_OVERWRITE = False
 #AWS_DEFAULT_ACL = None
 #AWS_S3_VERITY = True
@@ -292,10 +288,7 @@ USE_TZ = True
 
 
 # Credenciales de AWS
-#AWS_ACCESS_KEY_ID = '***REMOVED***'
-#AWS_SECRET_ACCESS_KEY = '***REMOVED***'
-#AWS_STORAGE_BUCKET_NAME = 'municipalidad-cantel-media'
-#AWS_S3_REGION_NAME = 'us-east-2'
+
 
 AWS_ACCESS_KEY_ID = config ('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = config ('AWS_SECRET_ACCESS_KEY')
