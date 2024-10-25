@@ -2,16 +2,20 @@ from rest_framework import serializers
 from .models import Noticia
 from .models import Evento
 from .models import ReporteCiudadano
-
-
-
-
-
-
-
-
-
 from .models import Inicio, ImagenPalacioMunicipal, ImagenEscudoMunicipal
+from .models import Noticia, ImagenNoticia
+from .models import Evento, ImagenEvento
+from .models import CorporacionActual, ImagenCorporacion
+from .models import HistoriaCantel, ImagenHistoriaCantel
+from .models import LugarTuristico, ImagenTuristica
+from .models import EventoCultural, ImagenCultural
+from .models import PlatoGastronomico, ImagenGastronomica
+from .models import LugarHospedaje, ImagenHospedaje
+from .models import Gasolinera, ImagenGasolinera
+from .models import Tramite, ImagenTramite, ArchivoTramite
+from .models import Servicio, ImagenServicio, ArchivoServicio
+
+
 
 class ImagenPalacioMunicipalSerializer(serializers.ModelSerializer):
     class Meta:
@@ -35,18 +39,6 @@ class InicioSerializer(serializers.ModelSerializer):
 
 
 
-
-
-
-
-
-
-
-
-
-
-from .models import Noticia, ImagenNoticia
-
 class ImagenNoticiaSerializer(serializers.ModelSerializer):
     class Meta:
         model = ImagenNoticia
@@ -62,7 +54,6 @@ class NoticiaSerializer(serializers.ModelSerializer):
 
 
 
-from .models import Evento, ImagenEvento
 
 class ImagenEventoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -80,7 +71,7 @@ class EventoSerializer(serializers.ModelSerializer):
 
 
 
-from .models import CorporacionActual, ImagenCorporacion
+
 
 class ImagenCorporacionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -98,7 +89,6 @@ class CorporacionActualSerializer(serializers.ModelSerializer):
 
 
 
-from .models import HistoriaCantel, ImagenHistoriaCantel
 
 class ImagenHistoriaCantelSerializer(serializers.ModelSerializer):
     class Meta:
@@ -115,7 +105,7 @@ class HistoriaCantelSerializer(serializers.ModelSerializer):
 
 
 
-from .models import LugarTuristico, ImagenTuristica
+
 
 class ImagenTuristicaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -132,7 +122,7 @@ class LugarTuristicoSerializer(serializers.ModelSerializer):
 
 
 
-from .models import EventoCultural, ImagenCultural
+
 
 class ImagenCulturalSerializer(serializers.ModelSerializer):
     class Meta:
@@ -148,7 +138,7 @@ class EventoCulturalSerializer(serializers.ModelSerializer):
 
 
 
-from .models import PlatoGastronomico, ImagenGastronomica
+
 
 class ImagenGastronomicaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -167,7 +157,7 @@ class PlatoGastronomicoSerializer(serializers.ModelSerializer):
 
 
 
-from .models import LugarHospedaje, ImagenHospedaje
+
 
 class ImagenHospedajeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -184,7 +174,6 @@ class LugarHospedajeSerializer(serializers.ModelSerializer):
 
 
 
-from .models import Gasolinera, ImagenGasolinera
 
 class ImagenGasolineraSerializer(serializers.ModelSerializer):
     class Meta:
@@ -211,7 +200,7 @@ class ReporteCiudadanoSerializer(serializers.ModelSerializer):
 
 
 
-from .models import Tramite, ImagenTramite, ArchivoTramite
+
 
 class ImagenTramiteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -234,7 +223,7 @@ class TramiteSerializer(serializers.ModelSerializer):
 
 
 
-from .models import Servicio, ImagenServicio, ArchivoServicio
+
 
 class ImagenServicioSerializer(serializers.ModelSerializer):
     class Meta:

@@ -15,7 +15,6 @@ from datetime import timedelta
 from dotenv import load_dotenv
 from decouple import config
 
-import os
 from decouple import config
 
 from decouple import config, Csv
@@ -178,18 +177,6 @@ WSGI_APPLICATION = 'cantel_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'NAME': 'municipalidad_cantel',
-#        'USER': 'root',
-#        'PASSWORD': '12345678',
-#        'HOST': 'localhost',
-#        'PORT': '3306',
-#    }
-#}
-
-
 
 
 DATABASES = {
@@ -202,18 +189,6 @@ DATABASES = {
         'PORT': '3306',  
     }
 }
-
-
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'NAME': 'municipalidad_cantel',
-#        'USER': 'munidb',
-#        'PASSWORD': 'Muni2024admin',
-#        'HOST': 'db-muni.cbwe0gmysorw.us-east-2.rds.amazonaws.com',
-#        'PORT': '3306',
-#    }
-#}
 
 
 
@@ -243,14 +218,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-#LANGUAGE_CODE = 'en-us'
-
-#IME_ZONE = 'UTC'
-
-#USE_I18N = True
-
-#USE_TZ = True
-
 
 
 LANGUAGE_CODE = 'es'
@@ -270,23 +237,6 @@ USE_TZ = True
 
 
 
-
-
-#AWS_S3_FILE_OVERWRITE = False
-#AWS_DEFAULT_ACL = None
-#AWS_S3_VERITY = True
-#AWS_S3_CUSTOM_DOMAIN = 'https://municipalidad-cantel-media.s3.us-east-2.amazonaws.com'
-
-# Configurar la ubicación de los archivos estáticos en S3
-#STATIC_URL = 'https://municipalidad-cantel-media.s3.us-east-2.amazonaws.com/static/'
-#MEDIA_URL = 'https://municipalidad-cantel-media.s3.us-east-2.amazonaws.com/media/'
-
-# Usar S3 para almacenar archivos estáticos y media
-#STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-#DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-
-
 # Credenciales de AWS
 
 
@@ -302,8 +252,7 @@ AWS_S3_VERIFY = True
 AWS_S3_CUSTOM_DOMAIN = 'municipalidad-cantel-media.s3.us-east-2.amazonaws.com'
 
 # Configurar la ubicación de los archivos estáticos en S3
-#STATIC_URL = 'municipalidad-cantel-media.s3.us-east-2.amazonaws.com/static/'
-#MEDIA_URL = 'municipalidad-cantel-media.s3.us-east-2.amazonaws.com/media/'
+
 STATIC_URL = 'https://municipalidad-cantel-media.s3.us-east-2.amazonaws.com/static/'
 MEDIA_URL = 'https://municipalidad-cantel-media.s3.us-east-2.amazonaws.com/media/'
 
@@ -330,14 +279,6 @@ STORAGES = {
 
 
 
-
-#STATIC_URL = '/static/'
-#MEDIA_URL = '/media/'
-
-
-
-
-
 # Si tienes archivos estáticos locales (para desarrollo local)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
@@ -351,17 +292,6 @@ AWS_DEFAULT_ACL = None  # Se recomienda establecer esto en 'None' para evitar pr
 # Otras configuraciones de seguridad relacionadas con HTTPS (ajusta según sea necesario)
 
 
-
-
-###
-
-# Configuración de archivos medios
-#MEDIA_URL = '/media/'
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# Configuración de archivos estáticos
-#STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 # Default primary key field type
